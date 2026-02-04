@@ -22,18 +22,30 @@ body {
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 340px;
 }
 
 h1 {
     color: #ff4d6d;
+    min-height: 70px;
+    transition: 0.3s;
+}
+
+img {
+    border-radius: 15px;
+    margin: 20px 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 260px;
+    height: auto;
+    transition: 0.3s;
 }
 
 button {
-    padding: 15px 30px;
+    padding: 12px 24px;
     font-size: 18px;
     border: none;
     border-radius: 10px;
-    margin: 15px;
+    margin: 10px;
     cursor: pointer;
 }
 
@@ -43,17 +55,14 @@ button {
 }
 
 #noBtn {
-    background: #ccc;   /* fixed, no movement */
-}
-
-.hidden {
-    display: none;
+    background: #ccc;
 }
 
 #loveMessage {
-    font-size: 22px;
-    margin-top: 20px;
+    margin-top: 15px;
+    font-size: 20px;
     color: #ff4d6d;
+    display: none;
 }
 </style>
 </head>
@@ -61,51 +70,49 @@ button {
 <body>
 
 <div class="container">
-    <h1>Debapriya, will you be my Valentine? ❤️</h1>
+    <h1 id="question">Debapriya, will you be my Valentine? ❤️</h1>
 
-    <img id="coupleImg" src="happy.jpg" width="260"
-    style="border-radius:15px;margin-bottom:20px;box-shadow:0 8px 20px rgba(0,0,0,0.2);">
+    <img id="photo" src="happy.jpg">
 
-    <br>
+    <div>
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😈</button>
+    </div>
 
-    <button id="yesBtn">Yes 💖</button>
-    <button id="noBtn">No 😈</button>
-
-    <div id="loveMessage" class="hidden">
-        YAYYY!! 💕<br><br>
-        You just made me the happiest person alive 🥹❤️<br>
-        I love you so much!
+    <div id="loveMessage">
+        YAYYY!! 💕<br>
+        You just made me the happiest person alive 🥹❤️
     </div>
 </div>
 
 <script>
-const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
+let noCount = 0;
+
+const question = document.getElementById('question');
+const photo = document.getElementById('photo');
 const loveMessage = document.getElementById('loveMessage');
-const coupleImg = document.getElementById('coupleImg');
 
-let noClicks = 0;
+document.getElementById('noBtn').onclick = () => {
+    noCount++;
 
-noBtn.addEventListener('click', () => {
-    noClicks++;
-
-    if (noClicks === 1) {
-        alert("Are you sure? 🥺");
-        coupleImg.src = "mad.jpg";
+    if (noCount === 1) {
+        question.innerText = "Are you sure? 🥺";
+        photo.src = "mad.jpg";
     } 
-    else if (noClicks === 2) {
-        alert("Last chance 😤");
-        coupleImg.src = "moremad.jpg";
+    else if (noCount === 2) {
+        question.innerText = "Think again 😤";
+        photo.src = "moremad.jpg";
     } 
     else {
-        alert("Okay okay, I get it 😭");
+        question.innerText = "You really want to say no? 😭";
     }
-});
+};
 
-yesBtn.addEventListener('click', () => {
-    coupleImg.src = "happy.jpg";
-    loveMessage.classList.remove('hidden');
-});
+document.getElementById('yesBtn').onclick = () => {
+    question.innerText = "I knew it!! ❤️";
+    photo.src = "happy.jpg";
+    loveMessage.style.display = "block";
+};
 </script>
 
 </body>
