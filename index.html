@@ -91,9 +91,16 @@ let noCount = 0;
 const question = document.getElementById('question');
 const photo = document.getElementById('photo');
 const loveMessage = document.getElementById('loveMessage');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
 
-document.getElementById('noBtn').onclick = () => {
+function resetLoveMessage() {
+    loveMessage.style.display = "none";
+}
+
+noBtn.onclick = () => {
     noCount++;
+    resetLoveMessage();
 
     if (noCount === 1) {
         question.innerText = "Are you sure? 🥺";
@@ -103,17 +110,21 @@ document.getElementById('noBtn').onclick = () => {
         question.innerText = "Think again 😤";
         photo.src = "moremad.jpg";
     } 
-    else {
-        question.innerText = "You really want to say no? 😭";
+    else if (noCount >= 3) {
+        question.innerText = "Too bad you are stuck with me for the rest of my life ❤️";
+        photo.src = "happy.jpg";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
     }
 };
 
-document.getElementById('yesBtn').onclick = () => {
+yesBtn.onclick = () => {
     question.innerText = "I knew it!! ❤️";
     photo.src = "happy.jpg";
     loveMessage.style.display = "block";
 };
 </script>
+
 
 </body>
 </html>
